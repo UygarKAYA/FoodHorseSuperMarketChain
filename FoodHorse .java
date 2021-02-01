@@ -103,6 +103,66 @@ public class FoodHorse {
                 exception.printStackTrace();
             }
         }
+	
+	else if (OperationNumber==2) {
+            try {
+                establishConnection();
+                Statement statement = connection.createStatement();
+                System.out.print("CustomerID: ");
+                String CustomerId = console.nextLine();
+                int customerId = Integer.valueOf(CustomerId);
+                while (customerId <= 0) {
+                    System.out.print("Please enter a valid CustomerID: ");
+                    CustomerId = console.nextLine();
+                    customerId = Integer.valueOf(CustomerId);
+                }
+
+                System.out.print("BranchID: ");
+                String BranchId = console.nextLine();
+                int branchId = Integer.valueOf(BranchId);
+                while (branchId <= 0) {
+                    System.out.print("Please enter a valid BranchID: ");
+                    BranchId = console.nextLine();
+                    branchId = Integer.valueOf(BranchId);
+                }
+
+                System.out.print("ProductID: ");
+                String ProductId = console.nextLine();
+                int productId = Integer.valueOf(ProductId);
+                while (productId <= 0) {
+                    System.out.print("Please enter a valid ProductID: ");
+                    ProductId = console.nextLine();
+                    productId = Integer.valueOf(ProductId);
+                }
+
+                System.out.print("OrderTime: ");
+                String OrderTime = console.nextLine();
+                while (OrderTime.length()<12 || OrderTime.length()>20) {
+                    System.out.print("Please enter valid Date (YYYY-MM-DD HH:MI:SS): ");
+                    OrderTime = console.nextLine();
+                }
+
+                String insertOrderTimeQuery = "insert into OrderTime(customerID,branchID,productID,Otime) values ('" + customerId
+                                            + "', '" + branchId + "', '" + productId + "', '" + OrderTime + "')";
+                statement.executeUpdate(insertOrderTimeQuery);
+
+                String selectedStockQuery = "select * from stock";
+                ResultSet rst = statement.executeQuery(selectedStockQuery);
+                int stockNumber = 0;
+                while(rst.next()){
+                    if(branchId == rst.getInt(1) && productId == rst.getInt(2)) {
+                        stockNumber = rst.getInt(3);
+                    }
+                }
+                stockNumber--;
+                String updateStockQuery = "update stock set stockquantity = " + stockNumber + " where (branchID = " + branchId
+                                                        + " and " + " productID = " + productId + ")";
+                statement.executeUpdate(updateStockQuery);
+                closeConnection();
+            } catch (SQLException exception) {
+                exception.printStackTrace();
+            }
+        }
 
         else if (OperationNumber==13) {
             establishConnection();
