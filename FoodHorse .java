@@ -218,6 +218,36 @@ public class FoodHorse {
             }
         }
 
+	else if (OperationNumber==5) {
+            try {
+                establishConnection();
+                Statement statement = connection.createStatement();
+
+                System.out.print("CustomerID: ");
+                String customerId = console.nextLine();
+                int CustomerId = Integer.valueOf(customerId);
+                while (CustomerId<=0) {
+                    System.out.print("Please enter a valid CustomerID: ");
+                    customerId = console.nextLine();
+                    CustomerId = Integer.valueOf(customerId);
+                }
+
+                String selectedLast5CustomerQuery = "select * from orderTime where customerID = " + CustomerId + " ORDER BY Otime DESC LIMIT 5";
+                ResultSet rst = statement.executeQuery(selectedLast5CustomerQuery);
+
+                System.out.println("------------------------------------------------------------------------------");
+                System.out.println("  CustomerID " + "       BranchID        " + "ProductID     " + "         OrderTime     ");
+                System.out.println("------------------------------------------------------------------------------");
+                while (rst.next()) {
+                    System.out.println("CustomerID: " + rst.getInt(1) + " ## " + " BranchID: " + rst.getInt(2)
+                            + " ## " + " ProductID: " + rst.getInt(3) + " ## " + " OrderTime: " + rst.getString(4));
+                }
+                closeConnection();
+            } catch (SQLException exception) {
+                exception.printStackTrace();
+            }
+        }
+
         else if (OperationNumber==13) {
             establishConnection();
             System.exit(0);
