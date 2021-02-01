@@ -296,6 +296,32 @@ public class FoodHorse {
             }
         }
 	
+	else if (OperationNumber==8) {
+            try {
+                establishConnection();
+                Statement statement = connection.createStatement();
+                System.out.print("Branch Name: ");
+                String branchName = console.nextLine();
+                while (branchName.length() > 20) {
+                    System.out.print("Please enter valid name: ");
+                    branchName = console.nextLine();
+                }
+
+                System.out.print("Branch Adress: ");
+                String branchAdress = console.nextLine();
+                while(branchAdress.length() > 40) {
+                    System.out.print("Please enter valid adress: ");
+                    branchAdress = console.nextLine();
+                }
+
+                String insertBranchQuery = "insert into branches(branchName,branchAdress) values ('" + branchName + "', '" + branchAdress + "')";
+                statement.executeUpdate(insertBranchQuery);
+                closeConnection();
+            } catch (SQLException exception) {
+                exception.printStackTrace();
+            }
+        }
+
         else if (OperationNumber==13) {
             establishConnection();
             System.exit(0);
