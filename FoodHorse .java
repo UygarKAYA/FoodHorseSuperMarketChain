@@ -188,6 +188,35 @@ public class FoodHorse {
                 exception.printStackTrace();
             }
         }
+	
+	else if (OperationNumber==4) {
+            try {
+                establishConnection();
+                Statement statement = connection.createStatement();
+                System.out.print("CustomerID: ");
+                String customerID = console.nextLine();
+                int CustomerId = Integer.valueOf(customerID);
+                while (CustomerId <= 0) {
+                    System.out.print("Please enter a valid CustomerID: ");
+                    customerID = console.nextLine();
+                    CustomerId = Integer.valueOf(customerID);
+                }
+
+                String selectedParticularCustomerQuery = "select * from orderTime where customerID = " + CustomerId;
+                ResultSet rst = statement.executeQuery(selectedParticularCustomerQuery);
+
+                System.out.println("------------------------------------------------------------------------------");
+                System.out.println("  CustomerID " + "       BranchID        " + "ProductID     " + "         OrderTime     ");
+                System.out.println("------------------------------------------------------------------------------");
+                while (rst.next()) {
+                        System.out.println("CustomerID: " + rst.getInt(1) + " ## " + " BranchID: " + rst.getInt(2)
+                                        + " ## " + " ProductID: " + rst.getInt(3) + " ## " + " OrderTime: " + rst.getString(4));
+                }
+                closeConnection();
+            } catch (SQLException exception) {
+                exception.printStackTrace();
+            }
+        }
 
         else if (OperationNumber==13) {
             establishConnection();
