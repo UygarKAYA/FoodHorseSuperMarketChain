@@ -247,6 +247,26 @@ public class FoodHorse {
                 exception.printStackTrace();
             }
         }
+	
+	 else if (OperationNumber==6) {
+            try {
+                establishConnection();
+                Statement statement = connection.createStatement();
+                String selectedBranchesQuery = "select * from branches";
+                ResultSet rst = statement.executeQuery(selectedBranchesQuery);
+                System.out.println("------------------------------------------------------------------------------");
+                System.out.println("    Branch ID    " + "            Branch Name            " + "          Branch Adress          ");
+                System.out.println("------------------------------------------------------------------------------");
+                while (rst.next()) {
+                    System.out.println("Branch ID: " + rst.getInt(1) + "  ##  "
+                                     + " Branch Name: " + rst.getString(2) + "  ##  "
+                                     + " Branch Adress: " + rst.getString(3));
+                }
+                closeConnection();
+            } catch (SQLException exception) {
+                exception.printStackTrace();
+            }
+        }
 
         else if (OperationNumber==13) {
             establishConnection();
