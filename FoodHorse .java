@@ -103,8 +103,7 @@ public class FoodHorse {
                 exception.printStackTrace();
             }
         }
-	
-	else if (OperationNumber==2) {
+        else if (OperationNumber==2) {
             try {
                 establishConnection();
                 Statement statement = connection.createStatement();
@@ -163,8 +162,7 @@ public class FoodHorse {
                 exception.printStackTrace();
             }
         }
-
-	else if (OperationNumber==3) {
+        else if (OperationNumber==3) {
             try {
                 establishConnection();
                 Statement statement = connection.createStatement();
@@ -188,8 +186,7 @@ public class FoodHorse {
                 exception.printStackTrace();
             }
         }
-	
-	else if (OperationNumber==4) {
+        else if (OperationNumber==4) {
             try {
                 establishConnection();
                 Statement statement = connection.createStatement();
@@ -217,8 +214,7 @@ public class FoodHorse {
                 exception.printStackTrace();
             }
         }
-
-	else if (OperationNumber==5) {
+        else if (OperationNumber==5) {
             try {
                 establishConnection();
                 Statement statement = connection.createStatement();
@@ -247,8 +243,7 @@ public class FoodHorse {
                 exception.printStackTrace();
             }
         }
-	
-	 else if (OperationNumber==6) {
+        else if (OperationNumber==6) {
             try {
                 establishConnection();
                 Statement statement = connection.createStatement();
@@ -267,8 +262,7 @@ public class FoodHorse {
                 exception.printStackTrace();
             }
         }
-	
-	else if (OperationNumber==7) {
+        else if (OperationNumber==7) {
             try {
                 establishConnection();
                 Statement statement = connection.createStatement();
@@ -295,8 +289,7 @@ public class FoodHorse {
                 exception.printStackTrace();
             }
         }
-	
-	else if (OperationNumber==8) {
+        else if (OperationNumber==8) {
             try {
                 establishConnection();
                 Statement statement = connection.createStatement();
@@ -321,8 +314,7 @@ public class FoodHorse {
                 exception.printStackTrace();
             }
         }
-
-	else if (OperationNumber==9) {
+        else if (OperationNumber==9) {
             try {
                 establishConnection();
                 Statement statement = connection.createStatement();
@@ -357,8 +349,7 @@ public class FoodHorse {
                 exception.printStackTrace();
             }
         }
-
-	else if (OperationNumber==10) {
+        else if (OperationNumber==10) {
             try {
                 establishConnection();
                 Statement statement = connection.createStatement();
@@ -398,8 +389,7 @@ public class FoodHorse {
                 exception.printStackTrace();
             }
         }
-
-	else if (OperationNumber==11) {
+        else if (OperationNumber==11) {
             try {
                 establishConnection();
                 Statement statement = connection.createStatement();
@@ -430,7 +420,39 @@ public class FoodHorse {
                 exception.printStackTrace();
             }
         }
+        else if (OperationNumber==12) {
+            try {
+                establishConnection();
+                Statement statement = connection.createStatement();
+                boolean booleanControlQuery = false;
+                while(!booleanControlQuery) {
+                    System.out.print("CustomerID: ");
+                    String customerId = console.nextLine();
+                    int customerıd = Integer.valueOf(customerId);
+                    String ControlQuery = "select customerID from customer where customerID = " + customerıd;
+                    ResultSet rst = statement.executeQuery(ControlQuery);
+                    while (rst.next()) {
+                        if (customerıd == rst.getInt(1)) {
+                            booleanControlQuery = true;
+                            break;
+                        }
+                    }
+                    if (booleanControlQuery) {
+                        String deleteOrderTimeIDquery = ("delete from orderTime where customerID = " + customerıd + ";");
+                        statement.executeUpdate(deleteOrderTimeIDquery);
 
+                        String deleteCustomerIDQuery = ("delete from customer where customerID = " + customerıd + ";");
+                        statement.executeUpdate(deleteCustomerIDQuery);
+                        closeConnection();
+                    }
+                    else{
+                        System.out.println("Your customerID is invalid");
+                    }
+                }
+            } catch (SQLException exception) {
+                exception.printStackTrace();
+            }
+        }
         else if (OperationNumber==13) {
             establishConnection();
             System.exit(0);
