@@ -358,6 +358,47 @@ public class FoodHorse {
             }
         }
 
+	else if (OperationNumber==10) {
+            try {
+                establishConnection();
+                Statement statement = connection.createStatement();
+
+                System.out.print("BranchID: ");
+                String branchID = console.nextLine();
+                int branchId = Integer.valueOf(branchID);
+                while (branchId <= 0) {
+                    System.out.print("Please enter valid branchID: ");
+                    branchID = console.nextLine();
+                    branchId = Integer.valueOf(branchID);
+                }
+
+                System.out.print("ProductID: ");
+                String productID = console.nextLine();
+                int productId = Integer.valueOf(productID);
+                while (productId <= 0) {
+                    System.out.print("Please enter valid productID: ");
+                    productID = console.nextLine();
+                    productId = Integer.valueOf(productID);
+                }
+
+                System.out.print("Stock Quantity: ");
+                String stockQuantity = console.nextLine();
+                int StockQuantity = Integer.valueOf(stockQuantity);
+                while (StockQuantity <= 0) {
+                    System.out.print("Please enter valid StockQuantity: ");
+                    stockQuantity = console.nextLine();
+                    StockQuantity = Integer.valueOf(stockQuantity);
+                }
+
+                String insertStockQuery = "insert into stock(branchID,productID,stockQuantity) " + "values ('"
+                                            + branchId + "', '" + productId + "', '" + StockQuantity + "')";
+                statement.executeUpdate(insertStockQuery);
+                closeConnection();
+            } catch (SQLException exception) {
+                exception.printStackTrace();
+            }
+        }
+
         else if (OperationNumber==13) {
             establishConnection();
             System.exit(0);
