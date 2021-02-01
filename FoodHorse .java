@@ -164,6 +164,31 @@ public class FoodHorse {
             }
         }
 
+	else if (OperationNumber==3) {
+            try {
+                establishConnection();
+                Statement statement = connection.createStatement();
+                String selectedCustomerQuery = "select * from customer";
+                ResultSet rst = statement.executeQuery(selectedCustomerQuery);
+                System.out.println("----------------------------------------------------------------------" +
+                                    "-----------------------------------------------------------------");
+                System.out.println("  Customer ID  " + "       Customer Name       " + "      Customer Surname      "
+                                        + "     Customer Adress    " + "      Customer PhoneNumber   ");
+                System.out.println("-----------------------------------------------------------------------" +
+                                    "----------------------------------------------------------------");
+                while (rst.next()) {
+                    System.out.println("Customer ID: " + rst.getInt(1) + " ## "
+                                     + " Customer Name: " + rst.getString(2) + " ## "
+                                     + " Customer Surname: " + rst.getString(3) + " ## "
+                                     + " Customer Adress: " + rst.getString(4) + " ## "
+                                     + "Customer PhoneNumber: " + rst.getString(5));
+                }
+                closeConnection();
+            } catch (SQLException exception) {
+                exception.printStackTrace();
+            }
+        }
+
         else if (OperationNumber==13) {
             establishConnection();
             System.exit(0);
