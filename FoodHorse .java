@@ -322,6 +322,42 @@ public class FoodHorse {
             }
         }
 
+	else if (OperationNumber==9) {
+            try {
+                establishConnection();
+                Statement statement = connection.createStatement();
+                System.out.print("Product Name: ");
+                String productName = console.nextLine();
+                while (productName.length() > 40) {
+                    System.out.print("Please enter valid name: ");
+                    productName = console.nextLine();
+                }
+
+                System.out.print("Product Description: ");
+                String ProductDescription = console.nextLine();
+                while (ProductDescription.length() > 70) {
+                    System.out.print("Please enter valid description: ");
+                    ProductDescription = console.nextLine();
+                }
+
+                System.out.print("Product Price: ");
+                String productPrice = console.nextLine();
+                double doubleProductPrice = Double.valueOf(productPrice);
+                while (doubleProductPrice < 0) {
+                    System.out.print("Please enter a valid productPrice: ");
+                    productPrice = console.nextLine();
+                    doubleProductPrice = Double.valueOf(productPrice);
+                }
+
+                String insertProductQuery = "insert into product(productName,productDescription,productPrice) " + "values ('"
+                                            + productName + "', '" + ProductDescription + "', '" + doubleProductPrice + "')";
+                statement.executeUpdate(insertProductQuery);
+                closeConnection();
+            } catch (SQLException exception) {
+                exception.printStackTrace();
+            }
+        }
+
         else if (OperationNumber==13) {
             establishConnection();
             System.exit(0);
