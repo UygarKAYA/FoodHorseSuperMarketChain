@@ -399,6 +399,38 @@ public class FoodHorse {
             }
         }
 
+	else if (OperationNumber==11) {
+            try {
+                establishConnection();
+                Statement statement = connection.createStatement();
+                System.out.print("Please enter Customer Phone Number: ");
+                String phoneNumber = console.nextLine();
+                if (phoneNumber.length()<11 || phoneNumber.length()>11) {
+                    while (phoneNumber.length() != 11) {
+                        System.out.print("Please enter valid phone number: ");
+                        phoneNumber = console.nextLine();
+                    }
+                }
+
+                String selectedQuery = "select * from customer where customerPhoneNumber = " + phoneNumber;
+                ResultSet rst = statement.executeQuery(selectedQuery);
+                System.out.println("----------------------------------------------------------------------------------" +
+                                                "-----------------------------------------------");
+                System.out.println(" Customer ID " + "         Customer Name       " + "     Customer Surname     "
+                                           + "     Customer Adress      " + "      Customer PhoneNumber     " );
+                while (rst.next()) {
+                    System.out.println("Customer ID: " + rst.getInt(1) + " ## "
+                            + "Customer Name: " + rst.getString(2) + " ## "
+                            + "Customer Surname: " + rst.getString(3) + " ## "
+                            + "Customer Adress: " + rst.getString(4) + " ## "
+                            + "Customer PhoneNumber: " + rst.getString(5));
+                }
+                closeConnection();
+            } catch (SQLException exception) {
+                exception.printStackTrace();
+            }
+        }
+
         else if (OperationNumber==13) {
             establishConnection();
             System.exit(0);
