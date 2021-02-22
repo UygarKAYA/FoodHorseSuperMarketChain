@@ -1,8 +1,8 @@
 create table customer
 (
-	customerID int AUTO_INCREMENT not null, 
-	customerName varchar(20), 
-	customerSurname varchar(20),
+    customerID int AUTO_INCREMENT not null, 
+    customerName varchar(20), 
+    customerSurname varchar(20),
     customerAdress varchar(40),
     customerPhoneNumber char(11), 
     primary key (customerID)
@@ -10,7 +10,7 @@ create table customer
 
 create table branches
 (
-	branchID int AUTO_INCREMENT not null,
+    branchID int AUTO_INCREMENT not null,
     branchName varchar(20), 
     branchAdress varchar(40),
     primary key (branchID)
@@ -18,7 +18,7 @@ create table branches
 
 create table product
 (
-	productID int AUTO_INCREMENT not null,
+    productID int AUTO_INCREMENT not null,
     productName varchar(40),
     productDescription varchar(70),
     productPrice double, CHECK (productPrice >=0),
